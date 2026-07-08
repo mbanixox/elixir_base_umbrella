@@ -42,7 +42,8 @@ defmodule ElixirBase.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.2"},
       {:swoosh, "~> 1.16"},
-      {:req, "~> 0.5"}
+      {:req, "~> 0.5"},
+      {:dotenvy, "~> 1.1.1"}
     ]
   end
 

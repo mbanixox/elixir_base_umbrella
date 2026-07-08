@@ -1,7 +1,7 @@
 import Config
 import Dotenvy
 
-env_dir_prefix = System.get_env("RELEASE_ROOT") || Path.expand("./envs")
+env_dir_prefix = System.get_env("RELEASE_ROOT") || Path.expand("../envs", __DIR__)
 
 source!(
   [
