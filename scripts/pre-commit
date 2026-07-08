@@ -1,2 +1,2 @@
 #!/bin/sh
-mix precommit --color=always
+mix precommit
