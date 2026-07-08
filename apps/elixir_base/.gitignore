@@ -24,3 +24,6 @@ erl_crash.dump
 
 # Ignore package tarball (built via "mix hex.build").
 elixir_base-*.tar
+
+# Ignore the Dialyzer PLT file 
+/priv/plts/
