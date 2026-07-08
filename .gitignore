@@ -67,3 +67,6 @@ envs/.dev.env
 envs/.test.env
 envs/.prod.env
 envs/*.overrides.env
+
+# Ignore the Dialyzer PLT file 
+/priv/plts/
