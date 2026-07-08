@@ -31,11 +31,11 @@ if config_env() in [:dev, :test] do
     database: env!("DB_NAME", :string),
     port: env!("DB_PORT", :integer)
 
-    config :elixir_base_web, ElixirBaseWeb.Endpoint,
-      secret_key_base: env!("SECRET_KEY_BASE", :string)
+  config :elixir_base_web, ElixirBaseWeb.Endpoint,
+    secret_key_base: env!("SECRET_KEY_BASE", :string)
 end
 
-  if config_env() == :prod do
+if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
       raise """
