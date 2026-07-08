@@ -1,4 +1,17 @@
 import Config
+import Dotenvy
+
+env_dir_prefix = System.get_env("RELEASE_ROOT") || Path.expand("./envs")
+
+source!(
+  [
+    Path.absname(".env", env_dir_prefix),
+    Path.absname(".#{config_env()}.env", env_dir_prefix),
+    Path.absname(".#{config_env()}.overrides.env", env_dir_prefix),
+    System.get_env()
+  ],
+  require_files: [Path.absname(".env", env_dir_prefix)]
+)
 
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
@@ -10,7 +23,19 @@ import Config
 config :elixir_base_web, ElixirBaseWeb.Endpoint,
   http: [port: String.to_integer(System.get_env("PORT", "4000"))]
 
-if config_env() == :prod do
+if config_env() in [:dev, :test] do
+  config :elixir_base, ElixirBase.Repo,
+    username: env!("DB_USERNAME", :string),
+    password: env!("DB_PASSWORD", :string),
+    hostname: env!("DB_HOSTNAME", :string),
+    database: env!("DB_NAME", :string),
+    port: env!("DB_PORT", :integer)
+
+    config :elixir_base_web, ElixirBaseWeb.Endpoint,
+      secret_key_base: env!("SECRET_KEY_BASE", :string)
+end
+
+  if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
       raise """

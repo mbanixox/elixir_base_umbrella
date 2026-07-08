@@ -1,15 +1,5 @@
 import Config
 
-# Configure your database
-config :elixir_base, ElixirBase.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "elixir_base_dev",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -23,7 +13,6 @@ config :elixir_base_web, ElixirBaseWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "KbGQ/3r4KdCP0r0spu77wAPiOpS/hxTuFP5Kz6T3Cp6fUxnV8YG+SR5i8GqwV0rq",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:elixir_base_web, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:elixir_base_web, ~w(--watch)]}

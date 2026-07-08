@@ -62,4 +62,8 @@ erl_crash.dump
 /installer/deps
 
 ## Ignore envs directory
-/envs
+envs/.env
+envs/.dev.env
+envs/.test.env
+envs/.prod.env
+envs/*.overrides.env
