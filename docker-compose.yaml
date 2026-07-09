@@ -4,7 +4,7 @@ services:
     ports:
       - 4000:4000
     env_file:
-      - envs/.env.prod
+      - envs/.prod.env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4000/"]
       interval: 30s
