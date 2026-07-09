@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.3.1] - 2026-07-09
+
+### Changed
+
+- Updated docker-compose to use .env.prod file for environment variables for consistency with runtime.exs environment path configuration
+
 ## [0.0.3] - 2026-07-09
 
 ### Added
