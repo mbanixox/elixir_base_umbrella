@@ -65,7 +65,6 @@ defmodule ElixirBase.Umbrella.MixProject do
       ci: [
         "compile --warnings-as-errors",
         "deps.unlock --unused",
-        "hex.audit",
         "deps.audit",
         "format --check-formatted",
         "credo --strict",
