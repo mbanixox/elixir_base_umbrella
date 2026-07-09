@@ -1,2 +1,17 @@
 #!/bin/sh
-mix precommit
+
+# Get staged Elixir/HEEx files
+STAGED=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ex|exs|heex)$')
+
+# Nothing Elixir-related staged, skip all checks
+if [ -z "$STAGED" ]; then
+  exit 0
+fi
+
+# Compile always runs incrementally (only changed files)
+mix compile --warnings-as-errors || exit 1
+mix deps.unlock --unused || exit 1
+
+# Only format-check and lint the staged files
+mix format --check-formatted $STAGED || exit 1
+mix credo --strict $STAGED || exit 1
