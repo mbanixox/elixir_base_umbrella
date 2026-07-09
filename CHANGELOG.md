@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.3] - 2026-07-09
+
+### Added
+
+- Implemented docker deployment
+
 ## [0.0.2] - 2026-07-09
 
 ### Added
