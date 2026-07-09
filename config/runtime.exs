@@ -3,15 +3,25 @@ import Dotenvy
 
 env_dir_prefix = System.get_env("RELEASE_ROOT") || Path.expand("../envs", __DIR__)
 
-source!(
-  [
-    Path.absname(".env", env_dir_prefix),
-    Path.absname(".#{config_env()}.env", env_dir_prefix),
-    Path.absname(".#{config_env()}.overrides.env", env_dir_prefix),
-    System.get_env()
-  ],
-  require_files: [Path.absname(".env", env_dir_prefix)]
-)
+if System.get_env("RELEASE_ROOT") do
+  # Production release: env vars are injected by Docker/the platform
+  source!([System.get_env()])
+else
+  # Dev/test: load from .env files
+  source!(
+    [
+      Path.absname(".env", env_dir_prefix),
+      Path.absname(".#{config_env()}.env", env_dir_prefix),
+      Path.absname(".#{config_env()}.overrides.env", env_dir_prefix),
+      System.get_env()
+    ],
+    require_files: [Path.absname(".env", env_dir_prefix)]
+  )
+end
+
+if System.get_env("PHX_SERVER") do
+  config :elixir_base_web, ElixirBaseWeb.Endpoint, server: true
+end
 
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
@@ -64,6 +74,10 @@ if config_env() == :prod do
       environment variable SECRET_KEY_BASE is missing.
       You can generate one by calling: mix phx.gen.secret
       """
+
+  host = System.get_env("PHX_HOST") || "example.com"
+
+  config :elixir_base_web, ElixirBaseWeb.Endpoint, url: [host: host, port: 443]
 
   config :elixir_base_web, ElixirBaseWeb.Endpoint,
     http: [
