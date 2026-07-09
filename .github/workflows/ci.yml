@@ -78,6 +78,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-dialyzer-${{ steps.beam.outputs.otp-version }}-${{ steps.beam.outputs.elixir-version }}-
 
+      - name: Install Hex and Rebar
+        run: |
+          mix local.hex --force
+          mix local.rebar --force
+          
       - name: Install dependencies
         run: mix deps.get
 
