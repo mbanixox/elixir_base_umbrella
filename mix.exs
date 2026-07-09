@@ -38,7 +38,8 @@ defmodule ElixirBase.Umbrella.MixProject do
       {:dotenvy, "~> 1.1.1"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:sobelow, "~> 0.14", only: [:dev, :test], runtime: false, warn_if_outdated: true}
+      {:sobelow, "~> 0.14", only: [:dev, :test], runtime: false, warn_if_outdated: true},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -64,6 +65,8 @@ defmodule ElixirBase.Umbrella.MixProject do
       ci: [
         "compile --warnings-as-errors",
         "deps.unlock --unused",
+        "hex.audit",
+        "deps.audit",
         "format --check-formatted",
         "credo --strict",
         "sobelow --root apps/elixir_base_web",
