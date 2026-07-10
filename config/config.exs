@@ -13,6 +13,19 @@ import Config
 config :elixir_base,
   ecto_repos: [ElixirBase.Repo]
 
+# Tell the Repo what defaults to use when generating migrations.
+# This means every `mix ecto.gen.migration` will default to UUID PKs
+# and microsecond timestamps
+config :elixir_base, ElixirBase.Repo,
+  migration_primary_key: [name: :id, type: :binary_id],
+  migration_timestamps: [type: :utc_datetime_usec]
+
+# elixir_core shares ElixirBase.Repo (same DB, same connection pool).
+# binary_id: true tells Phoenix generators to produce UUID-based schemas.
+config :elixir_core,
+  ecto_repos: [ElixirBase.Repo],
+  generators: [context_app: :elixir_core, binary_id: true]
+
 # Configure the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
@@ -22,9 +35,11 @@ config :elixir_base,
 # at the `config/runtime.exs`.
 config :elixir_base, ElixirBase.Mailer, adapter: Swoosh.Adapters.Local
 
+# context_app: :elixir_core — generators put domain code in elixir_core
+# binary_id: true — generated schemas use UUIDs
 config :elixir_base_web,
   ecto_repos: [ElixirBase.Repo],
-  generators: [context_app: :elixir_core]
+  generators: [context_app: :elixir_core, binary_id: true]
 
 # Configures the endpoint
 config :elixir_base_web, ElixirBaseWeb.Endpoint,
