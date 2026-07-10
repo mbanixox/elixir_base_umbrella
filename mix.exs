@@ -14,6 +14,7 @@ defmodule ElixirBase.Umbrella.MixProject do
         elixir_base_web: [
           applications: [
             elixir_base: :permanent,
+            elixir_core: :permanent,
             elixir_base_web: :permanent
           ]
         ]
