@@ -24,7 +24,7 @@ config :elixir_base, ElixirBase.Mailer, adapter: Swoosh.Adapters.Local
 
 config :elixir_base_web,
   ecto_repos: [ElixirBase.Repo],
-  generators: [context_app: :elixir_base]
+  generators: [context_app: :elixir_core]
 
 # Configures the endpoint
 config :elixir_base_web, ElixirBaseWeb.Endpoint,
